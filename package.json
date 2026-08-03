@@ -1,33 +1,17 @@
 {
   "name": "eduverse-platform",
   "version": "1.0.0",
-  "description": "Complete educational platform for WBBSE/WBCHSE/ISC/ICSE/CBSE boards",
+  "description": "Complete educational platform",
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
-    "server": "nodemon server/server.js",
-    "build": "echo 'Building EduVerse...' && mkdir -p public && cp -r src/* public/ || true",
-    "postinstall": "echo 'Dependencies installed successfully'"
+    "build": "echo 'Building EduVerse...'"
   },
   "dependencies": {
     "express": "^4.18.2",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
-    "multer": "^2.0.0-rc.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.10.0",
-    "axios": "^1.3.5",
-    "react-markdown": "^8.0.7",
-    "remark-math": "^5.1.1",
-    "rehype-katex": "^6.0.3",
-    "katex": "^0.16.4",
-    "react-syntax-highlighter": "^15.5.0",
-    "react-icons": "^4.8.0",
-    "fuse.js": "^6.6.2"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.22"
+    "multer": "^2.0.0-rc.2"
   },
   "engines": {
     "node": ">=18.0.0"
