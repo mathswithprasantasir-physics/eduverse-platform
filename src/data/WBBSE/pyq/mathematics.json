@@ -3,33 +3,271 @@
     "board": "WBBSE",
     "subject": "mathematics",
     "type": "pyq",
-    "years": [2023, 2022],
-    "chapters": ["Algebra", "Geometry"],
-    "topics": ["Quadratic Equations", "Circles"],
-    "totalQuestions": 2
+    "exam": "Madhyamik 2026",
+    "year": 2026,
+    "chapter": "Mixed",
+    "topics": [
+      "Simple Interest",
+      "Quadratic Equations",
+      "Statistics",
+      "Circle Geometry",
+      "Mensuration",
+      "Cyclic Quadrilateral"
+    ],
+    "totalQuestions": 6,
+    "totalMarks": 6,
+    "questionType": "Multiple Choice Questions (MCQ)",
+    "lastUpdated": "2026-08-04"
   },
   "items": [
     {
-      "id": "1",
-      "year": 2023,
-      "chapter": "Algebra",
-      "topic": "Quadratic Equations",
-      "difficulty": "Medium",
-      "marks": 5,
-      "content": "Solve: $3x^2 - 7x + 2 = 0$",
-      "solution": "x = 2 or x = 1/3",
-      "hint": "Use quadratic formula"
+      "id": "MADHYAMIK-2026-MATH-Q1",
+      "year": 2026,
+      "chapter": "Simple Interest",
+      "topic": "Rate of Interest",
+      "difficulty": "easy",
+      "marks": 1,
+      "questionNumber": 1,
+      "content": "If a principal becomes double in 10 years, the rate of simple interest per annum is\n\n$$\\text{Let Principal} = P, \\text{Amount} = 2P$$\n$$\\text{Simple Interest} = 2P - P = P$$\n$$\\text{Time} = 10 \\text{ years}$$\n\n$$SI = \\frac{P \\times R \\times T}{100}$$\n$$P = \\frac{P \\times R \\times 10}{100}$$\n$$R = 10\\%$$",
+      "options": [
+        {
+          "label": "(a)",
+          "value": "5%"
+        },
+        {
+          "label": "(b)",
+          "value": "10%"
+        },
+        {
+          "label": "(c)",
+          "value": "15%"
+        },
+        {
+          "label": "(d)",
+          "value": "20%"
+        }
+      ],
+      "correctOption": "b",
+      "correctAnswer": "10%",
+      "solution": "**Solution:**\n\nLet Principal = $P$\nAmount = $2P$ (double)\nSimple Interest = $2P - P = P$\nTime = 10 years\n\nUsing the formula: $$SI = \\frac{P \\times R \\times T}{100}$$\n\n$$P = \\frac{P \\times R \\times 10}{100}$$\n\nCancel $P$ from both sides:\n$$1 = \\frac{R \\times 10}{100}$$\n\n$$R = \\frac{100}{10} = 10\\%$$\n\n**Answer: (b) 10%**",
+      "hint": "Use the simple interest formula: SI = (P × R × T)/100. When principal doubles, SI = P.",
+      "tags": ["simple interest", "percentage", "rate", "time"],
+      "commonMistakes": [
+        "Forgetting to calculate SI first",
+        "Using compound interest formula instead of simple interest"
+      ]
     },
     {
-      "id": "2",
-      "year": 2022,
-      "chapter": "Geometry",
-      "topic": "Circles",
-      "difficulty": "Hard",
-      "marks": 8,
-      "content": "Two circles with radii 5 cm and 3 cm intersect at two points. Distance between centers is 7 cm. Find length of common chord.",
-      "solution": "Length = 30√3/7 cm",
-      "hint": "Use chord length formula"
+      "id": "MADHYAMIK-2026-MATH-Q2",
+      "year": 2026,
+      "chapter": "Quadratic Equations",
+      "topic": "Nature of Roots",
+      "difficulty": "medium",
+      "marks": 1,
+      "questionNumber": 2,
+      "content": "Condition of two roots of a quadratic equation $$ax^2 + bx + c = 0 \\ (a > 0)$$ will be equal in magnitude but opposite in sign\n\nFor roots to be equal in magnitude but opposite in sign:\n- Sum of roots = 0\n- Product of roots < 0\n\n$$\\text{Sum of roots} = -\\frac{b}{a} = 0$$\n$$\\therefore b = 0$$\n\n$$\\text{Product of roots} = \\frac{c}{a} < 0$$\n$$\\therefore c < 0$$",
+      "options": [
+        {
+          "label": "(a)",
+          "value": "$b = 0, c = 0$"
+        },
+        {
+          "label": "(b)",
+          "value": "$b \\neq 0, c > 0$"
+        },
+        {
+          "label": "(c)",
+          "value": "$b = 0, c < 0$"
+        },
+        {
+          "label": "(d)",
+          "value": "$b \\neq 0, c = 0$"
+        }
+      ],
+      "correctOption": "c",
+      "correctAnswer": "$b = 0, c < 0$",
+      "solution": "**Solution:**\n\nFor a quadratic equation $ax^2 + bx + c = 0$:\n\nSum of roots = $-\\frac{b}{a}$\nProduct of roots = $\\frac{c}{a}$\n\nIf roots are $\\alpha$ and $-\\alpha$ (equal in magnitude, opposite in sign):\n\nSum of roots = $\\alpha + (-\\alpha) = 0$\n$$-\\frac{b}{a} = 0$$\n$$b = 0$$\n\nProduct of roots = $\\alpha \\times (-\\alpha) = -\\alpha^2 < 0$\n$$\\frac{c}{a} < 0$$\n\nSince $a > 0$, we get $c < 0$\n\nTherefore, $b = 0$ and $c < 0$\n\n**Answer: (c) $b = 0, c < 0$**",
+      "hint": "Remember: Sum of roots = -b/a, Product of roots = c/a. For opposite roots, sum = 0.",
+      "tags": ["quadratic equations", "roots", "nature of roots", "discriminant"],
+      "commonMistakes": [
+        "Confusing sum and product of roots",
+        "Forgetting the condition for opposite roots"
+      ]
+    },
+    {
+      "id": "MADHYAMIK-2026-MATH-Q3",
+      "year": 2026,
+      "chapter": "Statistics",
+      "topic": "Average/Mean",
+      "difficulty": "easy",
+      "marks": 1,
+      "questionNumber": 3,
+      "content": "If average of 6, 7, x, y, 16 be 9, then\n\n$$\\text{Average} = \\frac{\\text{Sum of observations}}{\\text{Number of observations}}$$\n$$9 = \\frac{6 + 7 + x + y + 16}{5}$$\n$$9 \\times 5 = 29 + x + y$$\n$$45 = 29 + x + y$$\n$$x + y = 16$$",
+      "options": [
+        {
+          "label": "(a)",
+          "value": "$x + y = 21$"
+        },
+        {
+          "label": "(b)",
+          "value": "$x + y = 16$"
+        },
+        {
+          "label": "(c)",
+          "value": "$x - y = 21$"
+        },
+        {
+          "label": "(d)",
+          "value": "$x - y = 19$"
+        }
+      ],
+      "correctOption": "b",
+      "correctAnswer": "$x + y = 16$",
+      "solution": "**Solution:**\n\nGiven observations: 6, 7, x, y, 16\nNumber of observations = 5\nAverage = 9\n\nUsing the average formula:\n$$\\text{Average} = \\frac{\\text{Sum of all observations}}{\\text{Number of observations}}$$\n\n$$9 = \\frac{6 + 7 + x + y + 16}{5}$$\n\n$$9 \\times 5 = 29 + x + y$$\n\n$$45 = 29 + x + y$$\n\n$$x + y = 45 - 29$$\n\n$$x + y = 16$$\n\n**Answer: (b) $x + y = 16$**",
+      "hint": "Average = Sum of all numbers ÷ Count of numbers. Solve for x + y.",
+      "tags": ["statistics", "average", "mean", "arithmetic mean"],
+      "commonMistakes": [
+        "Miscounting the number of observations",
+        "Error in arithmetic while solving"
+      ]
+    },
+    {
+      "id": "MADHYAMIK-2026-MATH-Q4",
+      "year": 2026,
+      "chapter": "Mensuration",
+      "topic": "Circle - Arc Length",
+      "difficulty": "medium",
+      "marks": 1,
+      "questionNumber": 4,
+      "content": "Arc of length 121 cm of a circle makes 77° angle at the centre of the circle then the radius of the circle will be\n\n$$\\text{Arc length} = \\frac{\\theta}{360°} \\times 2\\pi r$$\n$$121 = \\frac{77}{360} \\times 2\\pi r$$\n$$121 = \\frac{77}{180} \\times \\pi r$$\n$$r = \\frac{121 \\times 180}{77 \\times \\pi}$$\n$$r = \\frac{121 \\times 180}{77 \\times \\frac{22}{7}}$$\n$$r = \\frac{121 \\times 180 \\times 7}{77 \\times 22}$$\n$$r = 90 \\text{ cm}$$",
+      "options": [
+        {
+          "label": "(a)",
+          "value": "110 cm"
+        },
+        {
+          "label": "(b)",
+          "value": "100 cm"
+        },
+        {
+          "label": "(c)",
+          "value": "90 cm"
+        },
+        {
+          "label": "(d)",
+          "value": "70 cm"
+        }
+      ],
+      "correctOption": "c",
+      "correctAnswer": "90 cm",
+      "solution": "**Solution:**\n\nGiven:\nArc length = 121 cm\nAngle at centre = 77°\n\nUsing the formula:\n$$\\text{Arc length} = \\frac{\\theta}{360°} \\times 2\\pi r$$\n\n$$121 = \\frac{77}{360} \\times 2\\pi r$$\n\n$$121 = \\frac{77}{180} \\times \\pi r$$\n\n$$r = \\frac{121 \\times 180}{77 \\times \\pi}$$\n\nTaking $\\pi = \\frac{22}{7}$:\n\n$$r = \\frac{121 \\times 180 \\times 7}{77 \\times 22}$$\n\n$$r = \\frac{121 \\times 1260}{1694}$$\n\n$$r = 90 \\text{ cm}$$\n\n**Answer: (c) 90 cm**",
+      "hint": "Use the arc length formula: L = (θ/360°) × 2πr. Remember π = 22/7 for calculations.",
+      "tags": ["mensuration", "circle", "arc length", "radius", "central angle"],
+      "commonMistakes": [
+        "Using wrong formula for arc length",
+        "Error in converting degrees to radians",
+        "Arithmetic mistakes in calculation"
+      ]
+    },
+    {
+      "id": "MADHYAMIK-2026-MATH-Q5",
+      "year": 2026,
+      "chapter": "Mensuration",
+      "topic": "Cube - Diagonal",
+      "difficulty": "easy",
+      "marks": 1,
+      "questionNumber": 5,
+      "content": "Length of a side of a cube be $a$ unit and length of the diagonal be $d$ unit then the relation of $a$ and $d$ will be\n\nFor a cube, the body diagonal (space diagonal) is given by:\n$$d = \\sqrt{a^2 + a^2 + a^2} = \\sqrt{3a^2} = a\\sqrt{3}$$\n\nTherefore:\n$$\\sqrt{3}a = d$$",
+      "options": [
+        {
+          "label": "(a)",
+          "value": "$\\sqrt{2} \\, a = d$"
+        },
+        {
+          "label": "(b)",
+          "value": "$\\sqrt{3} \\, a = d$"
+        },
+        {
+          "label": "(c)",
+          "value": "$a = \\sqrt{3} \\, d$"
+        },
+        {
+          "label": "(d)",
+          "value": "$a = \\sqrt{2} \\, d$"
+        }
+      ],
+      "correctOption": "b",
+      "correctAnswer": "$\\sqrt{3} a = d$",
+      "solution": "**Solution:**\n\nFor a cube with side length $a$:\n\nThe body diagonal (space diagonal) connects opposite vertices of the cube.\n\nUsing the 3D distance formula:\n$$d = \\sqrt{a^2 + a^2 + a^2}$$\n$$d = \\sqrt{3a^2}$$\n$$d = a\\sqrt{3}$$\n\nTherefore:\n$$\\sqrt{3}a = d$$\n\n**Answer: (b) $\\sqrt{3} a = d$**",
+      "hint": "In a cube, the body diagonal is the longest diagonal. Use Pythagorean theorem in 3D.",
+      "tags": ["mensuration", "cube", "diagonal", "3D geometry"],
+      "commonMistakes": [
+        "Using face diagonal formula (√2a) instead of body diagonal (√3a)",
+        "Confusing the relation between a and d"
+      ]
+    },
+    {
+      "id": "MADHYAMIK-2026-MATH-Q6",
+      "year": 2026,
+      "chapter": "Circle Geometry",
+      "topic": "Cyclic Quadrilateral",
+      "difficulty": "hard",
+      "marks": 1,
+      "questionNumber": 6,
+      "content": "$ABCD$ be a cyclic quadrilateral whose centre is $O$. $BC$ is extended upto $E$. If $\\angle DCE = 96°$ then the value of $\\angle BOD$ will be\n\n**Properties of Cyclic Quadrilateral:**\n- Opposite angles are supplementary\n- Angle subtended by an arc at the centre is twice the angle subtended at the circumference\n\n$\\angle BCD + \\angle BAD = 180°$ (Opposite angles of cyclic quadrilateral)\n\n$\\angle DCE = 96°$ is an exterior angle\n\n$\\angle BCD = 180° - 96° = 84°$ (Linear pair)\n\n$\\angle BAD = 180° - 84° = 96°$ (Opposite angles of cyclic quadrilateral)\n\n$\\angle BOD = 2 \\times \\angle BAD = 2 \\times 84° = 168°$\n\n(Arc BD subtends $\\angle BAD$ at the circumference and $\\angle BOD$ at the centre)",
+      "options": [
+        {
+          "label": "(a)",
+          "value": "$42°$"
+        },
+        {
+          "label": "(b)",
+          "value": "$84°$"
+        },
+        {
+          "label": "(c)",
+          "value": "$142°$"
+        },
+        {
+          "label": "(d)",
+          "value": "$168°$"
+        }
+      ],
+      "correctOption": "d",
+      "correctAnswer": "$168°$",
+      "solution": "**Solution:**\n\nGiven:\n- $ABCD$ is a cyclic quadrilateral\n- $O$ is the centre\n- $BC$ extended to $E$\n- $\\angle DCE = 96°$\n\n**Step 1:** Find $\\angle BCD$\n\n$\\angle BCD + \\angle DCE = 180°$ (Linear pair)\n$\\angle BCD = 180° - 96° = 84°$\n\n**Step 2:** Find $\\angle BAD$\n\nIn a cyclic quadrilateral, opposite angles are supplementary:\n$\\angle BAD + \\angle BCD = 180°$\n$\\angle BAD = 180° - 84° = 96°$\n\n**Step 3:** Find $\\angle BOD$\n\nThe angle subtended by an arc at the centre is twice the angle subtended by it at any point on the circumference.\n\n$\\angle BOD = 2 \\times \\angle BAD$\n$\\angle BOD = 2 \\times 84° = 168°$\n\n**Answer: (d) 168°**\n\n*Note: We used $\\angle BAD = 84°$ (angle subtended by arc BD at the circumference) to find $\\angle BOD$.*",
+      "hint": "Remember: (1) Opposite angles of cyclic quadrilateral are supplementary. (2) Angle at centre is twice angle at circumference. Be careful which angle subtends the arc.",
+      "tags": ["circle geometry", "cyclic quadrilateral", "central angle", "inscribed angle"],
+      "commonMistakes": [
+        "Using $\\angle BAD = 96°$ instead of $84°$ to find $\\angle BOD$",
+        "Forgetting that $\\angle BAD$ and $\\angle BCD$ are opposite angles",
+        "Not applying the linear pair property correctly"
+      ]
     }
-  ]
+  ],
+  "answerKey": {
+    "Q1": "b",
+    "Q2": "c",
+    "Q3": "b",
+    "Q4": "c",
+    "Q5": "b",
+    "Q6": "d"
+  },
+  "summary": {
+    "totalQuestions": 6,
+    "totalMarks": 6,
+    "topicsCovered": [
+      "Simple Interest",
+      "Quadratic Equations",
+      "Statistics",
+      "Circle Mensuration",
+      "Cube Geometry",
+      "Cyclic Quadrilateral"
+    ],
+    "difficultyDistribution": {
+      "easy": 3,
+      "medium": 2,
+      "hard": 1
+    }
+  }
 }
