@@ -13,133 +13,131 @@ app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
-// Create uploads directory if it doesn't exist
-const uploadDir = path.join(__dirname, '../public/images');
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
+// Create directories if they don't exist
+const publicDir = path.join(__dirname, '../public');
+const imagesDir = path.join(publicDir, 'images');
+const dataDir = path.join(__dirname, '../src/data');
+
+if (!fs.existsSync(publicDir)) {
+    fs.mkdirSync(publicDir, { recursive: true });
+}
+if (!fs.existsSync(imagesDir)) {
+    fs.mkdirSync(imagesDir, { recursive: true });
+}
+if (!fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir, { recursive: true });
 }
 
-// Serve static files from public directory
-app.use('/images', express.static(path.join(__dirname, '../public/images')));
-
-// Serve static files from the built React app (if it exists)
-const buildPath = path.join(__dirname, '../build');
-if (fs.existsSync(buildPath)) {
-  app.use(express.static(buildPath));
-}
+// Serve static files FIRST
+app.use(express.static(publicDir));
+app.use('/images', express.static(imagesDir));
 
 // Configure multer for image uploads
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, uploadDir);
-  },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
-  }
+    destination: (req, file, cb) => {
+        cb(null, imagesDir);
+    },
+    filename: (req, file, cb) => {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+    }
 });
 
-const upload = multer({ 
-  storage: storage,
-  limits: { fileSize: 5 * 1024 * 1024 },
-  fileFilter: (req, file, cb) => {
-    const allowedTypes = /jpeg|jpg|png|gif|webp/;
-    const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
-    const mimetype = allowedTypes.test(file.mimetype);
-    if (mimetype && extname) {
-      return cb(null, true);
+const upload = multer({
+    storage: storage,
+    limits: { fileSize: 5 * 1024 * 1024 },
+    fileFilter: (req, file, cb) => {
+        const allowedTypes = /jpeg|jpg|png|gif|webp/;
+        const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+        const mimetype = allowedTypes.test(file.mimetype);
+        if (mimetype && extname) {
+            return cb(null, true);
+        }
+        cb(new Error('Only image files are allowed'));
     }
-    cb(new Error('Only image files are allowed'));
-  }
 });
 
 // Health check endpoint
 app.get('/health', (req, res) => {
-  res.json({ 
-    status: 'healthy', 
-    timestamp: new Date().toISOString(),
-    uptime: process.uptime(),
-    version: '1.0.0'
-  });
+    res.json({
+        status: 'healthy',
+        timestamp: new Date().toISOString(),
+        uptime: process.uptime(),
+        version: '1.0.0'
+    });
 });
 
 // API Routes
 app.get('/api/content/:board/:subject/:type', async (req, res) => {
-  try {
-    const { board, subject, type } = req.params;
-    const filePath = path.join(__dirname, '../src/data', board, type, `${subject}.json`);
-    
-    // Check if file exists
-    if (!fs.existsSync(filePath)) {
-      return res.status(404).json({ 
-        error: 'Content not found',
-        message: `No content found for ${board}/${subject}/${type}`
-      });
+    try {
+        const { board, subject, type } = req.params;
+        const filePath = path.join(dataDir, board, type, `${subject}.json`);
+        
+        if (!fs.existsSync(filePath)) {
+            return res.status(404).json({
+                error: 'Content not found',
+                message: `No content found for ${board}/${subject}/${type}`
+            });
+        }
+        
+        const data = await fs.promises.readFile(filePath, 'utf8');
+        const content = JSON.parse(data);
+        res.json(content);
+    } catch (error) {
+        console.error('Error fetching content:', error);
+        res.status(500).json({ error: 'Failed to load content' });
     }
-    
-    const data = await fs.promises.readFile(filePath, 'utf8');
-    const content = JSON.parse(data);
-    res.json(content);
-  } catch (error) {
-    console.error('Error fetching content:', error);
-    res.status(500).json({ error: 'Failed to load content' });
-  }
 });
 
 // Image upload endpoint
 app.post('/api/upload/image', upload.single('image'), (req, res) => {
-  try {
-    if (!req.file) {
-      return res.status(400).json({ error: 'No image uploaded' });
+    try {
+        if (!req.file) {
+            return res.status(400).json({ error: 'No image uploaded' });
+        }
+        const imageUrl = `/images/${req.file.filename}`;
+        res.json({
+            success: true,
+            url: imageUrl,
+            filename: req.file.filename,
+            size: req.file.size,
+            mimetype: req.file.mimetype
+        });
+    } catch (error) {
+        console.error('Upload error:', error);
+        res.status(500).json({ error: 'Failed to upload image' });
     }
-    const imageUrl = `/images/${req.file.filename}`;
-    res.json({ 
-      success: true, 
-      url: imageUrl,
-      filename: req.file.filename,
-      size: req.file.size,
-      mimetype: req.file.mimetype
-    });
-  } catch (error) {
-    console.error('Upload error:', error);
-    res.status(500).json({ error: 'Failed to upload image' });
-  }
 });
 
-// Serve React app for all other routes (if build exists)
-if (fs.existsSync(buildPath)) {
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(buildPath, 'index.html'));
-  });
-} else {
-  // Fallback route for development
-  app.get('/', (req, res) => {
-    res.json({
-      message: 'EduVerse API is running',
-      version: '1.0.0',
-      endpoints: {
-        health: '/health',
-        content: '/api/content/:board/:subject/:type',
-        upload: '/api/upload/image'
-      },
-      boards: ['WBBSE', 'WBCHSE', 'ISC', 'ICSE', 'CBSE'],
-      note: 'Frontend build not found. Please build the React app or use the API directly.'
-    });
-  });
-}
+// IMPORTANT: Catch-all route to serve index.html for any non-API route
+app.get('*', (req, res) => {
+    // Skip API routes
+    if (req.path.startsWith('/api/')) {
+        return res.status(404).json({ error: 'API endpoint not found' });
+    }
+    
+    // Serve index.html
+    const indexPath = path.join(publicDir, 'index.html');
+    if (fs.existsSync(indexPath)) {
+        res.sendFile(indexPath);
+    } else {
+        res.status(404).send('index.html not found. Please create public/index.html');
+    }
+});
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-  console.error('Error:', err);
-  res.status(500).json({ 
-    error: 'Internal server error',
-    message: err.message 
-  });
+    console.error('Error:', err);
+    res.status(500).json({
+        error: 'Internal server error',
+        message: err.message
+    });
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 EduVerse server running on port ${PORT}`);
-  console.log(`📚 API available at http://localhost:${PORT}/api`);
-  console.log(`🖼️ Images served from http://localhost:${PORT}/images`);
-  console.log(`❤️ Health check: http://localhost:${PORT}/health`);
+    console.log(`🚀 EduVerse server running on port ${PORT}`);
+    console.log(`📚 API available at http://localhost:${PORT}/api`);
+    console.log(`🖼️ Images served from http://localhost:${PORT}/images`);
+    console.log(`❤️ Health check: http://localhost:${PORT}/health`);
+    console.log(`🌐 Frontend: http://localhost:${PORT}`);
 });
