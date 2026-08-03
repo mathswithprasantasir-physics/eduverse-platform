@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server/server.js",
     "server": "nodemon server/server.js",
-    "build": "echo 'Building EduVerse platform...'",
+    "build": "echo 'Building EduVerse...' && mkdir -p public && cp -r src/* public/ || true",
     "postinstall": "echo 'Dependencies installed successfully'"
   },
   "dependencies": {
@@ -24,8 +24,7 @@
     "katex": "^0.16.4",
     "react-syntax-highlighter": "^15.5.0",
     "react-icons": "^4.8.0",
-    "fuse.js": "^6.6.2",
-    "concurrently": "^8.0.1"
+    "fuse.js": "^6.6.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
