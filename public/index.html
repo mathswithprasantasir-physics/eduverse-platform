@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EduVerse - Educational Platform</title>
+    
+    <!-- KaTeX CSS and JS for LaTeX rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    
     <style>
         * {
             margin: 0;
@@ -375,6 +381,30 @@
             margin: 10px 0;
         }
         
+        /* KaTeX styles */
+        .item-content .katex-display {
+            margin: 15px 0;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 5px 0;
+        }
+        
+        .item-content .katex {
+            font-size: 1.1em;
+        }
+        
+        body.dark .item-content .katex {
+            color: #e9ecef !important;
+        }
+        
+        body.dark .item-content .katex .mathnormal {
+            color: #e9ecef !important;
+        }
+        
+        body.dark .item-content .katex .mord {
+            color: #e9ecef !important;
+        }
+        
         .item-solution {
             background: #f8f9fa;
             padding: 15px;
@@ -387,6 +417,10 @@
             background: #1a1a2e;
         }
         
+        .item-solution .katex-display {
+            margin: 10px 0;
+        }
+        
         .item-hint {
             color: #667eea;
             margin-top: 10px;
@@ -397,6 +431,42 @@
         
         body.dark .item-hint {
             background: #1a1a2e;
+        }
+        
+        /* Options styling */
+        .options-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin: 10px 0;
+        }
+        
+        @media (max-width: 600px) {
+            .options-list {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .option-item {
+            padding: 8px 12px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border: 1px solid #e9ecef;
+        }
+        
+        body.dark .option-item {
+            background: #1a1a2e;
+            border-color: #2d3436;
+        }
+        
+        .option-item.correct {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+        
+        body.dark .option-item.correct {
+            background: #155724;
+            border-color: #28a745;
         }
         
         /* Loading */
@@ -651,7 +721,7 @@
             }
         }
         
-        // Render content
+        // Render content with KaTeX
         function renderContent(data) {
             const display = document.getElementById('contentDisplay');
             
@@ -667,6 +737,23 @@
             let html = `<p style="color:#636e72;margin-bottom:15px;">Found ${data.items.length} questions</p>`;
             
             data.items.forEach((item, index) => {
+                // Format options if they exist
+                let optionsHtml = '';
+                if (item.options && item.options.length > 0) {
+                    optionsHtml = '<div class="options-list">';
+                    item.options.forEach(opt => {
+                        const isCorrect = opt.label === item.correctOption || 
+                                         opt.value === item.correctAnswer;
+                        optionsHtml += `
+                            <div class="option-item ${isCorrect ? 'correct' : ''}">
+                                ${opt.label} ${opt.value}
+                                ${isCorrect ? ' ✅' : ''}
+                            </div>
+                        `;
+                    });
+                    optionsHtml += '</div>';
+                }
+                
                 html += `
                     <div class="content-item">
                         <div class="item-header">
@@ -678,6 +765,7 @@
                             </div>
                         </div>
                         <div class="item-content">${formatContent(item.content)}</div>
+                        ${optionsHtml}
                         ${item.solution ? `<div class="item-solution"><strong>💡 Solution:</strong><br>${formatContent(item.solution)}</div>` : ''}
                         ${item.hint ? `<div class="item-hint"><strong>💡 Hint:</strong> ${item.hint}</div>` : ''}
                     </div>
@@ -685,9 +773,20 @@
             });
             
             display.innerHTML = html;
+            
+            // Render KaTeX after DOM update
+            renderMathInElement(display, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '\\[', right: '\\]', display: true},
+                    {left: '$', right: '$', display: false},
+                    {left: '\\(', right: '\\)', display: false}
+                ],
+                throwOnError: false
+            });
         }
         
-        // Format content
+        // Format content - preserve LaTeX delimiters for KaTeX
         function formatContent(text) {
             if (!text) return '';
             
@@ -698,18 +797,13 @@
                 .replace(/`([^`]+)`/g, '<code style="background:#f0f2f5;padding:2px 6px;border-radius:4px;">$1</code>')
                 .replace(/\n/g, '<br>');
             
+            // Handle images
             formatted = formatted.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, src) => {
                 return `<img src="${src}" alt="${alt}" style="max-width:100%;border-radius:8px;margin:10px 0;" />`;
             });
             
-            // Handle LaTeX (simple)
-            formatted = formatted.replace(/\$\$(.*?)\$\$/g, (match, latex) => {
-                return `<span style="font-family: 'Times New Roman', serif; font-style: italic;">${latex}</span>`;
-            });
-            
-            formatted = formatted.replace(/\$(.*?)\$/g, (match, latex) => {
-                return `<span style="font-family: 'Times New Roman', serif; font-style: italic;">${latex}</span>`;
-            });
+            // Preserve LaTeX for KaTeX (don't convert $$, $, \[, \()
+            // KaTeX will handle these delimiters
             
             return formatted;
         }
