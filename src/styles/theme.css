@@ -1,0 +1,109 @@
+:root {
+  /* Light Theme */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-sidebar: #f1f3f5;
+  --text-primary: #212529;
+  --text-secondary: #495057;
+  --border-color: #dee2e6;
+  --accent-color: #4a90e2;
+  --shadow-color: rgba(0,0,0,0.1);
+  --hover-bg: #e9ecef;
+  --card-bg: #ffffff;
+  --code-bg: #f1f3f5;
+  --success: #28a745;
+  --warning: #ffc107;
+  --danger: #dc3545;
+}
+
+body.dark {
+  --bg-primary: #1a1a2e;
+  --bg-secondary: #16213e;
+  --bg-sidebar: #1a1a2e;
+  --text-primary: #e9ecef;
+  --text-secondary: #ced4da;
+  --border-color: #2d3436;
+  --accent-color: #6c5ce7;
+  --shadow-color: rgba(0,0,0,0.3);
+  --hover-bg: #2d3436;
+  --card-bg: #2d3436;
+  --code-bg: #1a1a2e;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+  background: transparent;
+  border: 2px solid var(--border-color);
+  border-radius: 20px;
+  padding: 8px 16px;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background: var(--hover-bg);
+}
+
+.theme-toggle svg {
+  font-size: 1.2em;
+}
+
+/* Dark Mode Specific Styles */
+.dark .header {
+  background: var(--bg-sidebar);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.dark .sidebar {
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border-color);
+}
+
+.dark .content-item {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+}
+
+.dark .filter-system {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.dark .search-bar input {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+.dark code {
+  background: var(--code-bg);
+  color: var(--text-primary);
+}
+
+.dark .table-wrapper table {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+.dark .table-wrapper th {
+  background: var(--bg-sidebar);
+  color: var(--text-primary);
+}
+
+.dark .table-wrapper td {
+  border-color: var(--border-color);
+  color: var(--text-secondary);
+}
+
+/* KaTeX Dark Mode */
+.dark .katex {
+  color: var(--text-primary) !important;
+}
+
+.dark .katex .mathnormal {
+  color: var(--text-primary) !important;
+}
